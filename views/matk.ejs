@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Matk</title>
+    <%- include("./partials/header.ejs") %>
+</head>
+<body>
+
+    <div class="container">
+        <%- include("./partials/menyy.ejs") %>
+
+        <h1><%= matk.nimetus %></h1>
+        <img class="matkapilt" src="<%= matk.pildiUrl %>" alt="Matk image">
+        <p><%= matk.kirjeldus %></p>
+        <p>Osalejad: <%= matk.osalejad.length %></p>
+
+        <h3>Oled huvitatud? Registreeru matkale</h3>
+        <form class="registreerumine" action="/registreerumine" method = "post">
+            <div class="vali">
+                <label for="nimi">Nimi:</label>&nbsp;&nbsp;
+                <input type="text" name = "nimi" placeholder="nimi">
+            </div>
+            <div class="vali">
+                <label for="Email">Email:</label>
+                <input type="text" name = "email" placeholder="email">
+            </div>      
+            <input type="hidden" name="matkaIndex" value="<%=id %>">
+            <input type="submit" value="Registreeru" class="btn btn-primary mt-2">
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Uudised</title>
+    <%- include("./partials/header.ejs") %> 
+</head>
+<body>
+    <div class="container">
+        <%- include("./partials/menyy.ejs") %>
+
+        <h1 class="uudis-title"><%= uudis.pealkiri %></h1>
+        <img class="uudis-image" src="<%= uudis.pildiUrl %>">
+        <p class="uudis-summary"><%= uudis.kokkuvõte %></p>
+
+    </div>
+</body>
+</html>

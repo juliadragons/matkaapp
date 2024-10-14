@@ -144,7 +144,61 @@ body {
     cursor: pointer;
 }
 
+.matkapilt {
+    width: 40%;
+}
 
+.uudised {
+    display: flex; /* a flex container */
+    flex-wrap: wrap; /* The flex items will wrap onto a new line if needed */
+    margin-top: 2rem;
+    
+    .uudis-container {
+        width: 30rem; /* rem units are relative to the font size of the root element (16px by default) */
+        text-align: center; /* Centers all inline and block elements like img, h3, p, and a */
+        margin: 0 auto; /* Centers the container itself if it has a defined width */
+
+        .uudispilt {
+            width: 80%;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }       
+    }
+}
+
+.uudis-title {
+    font-size: 2rem;
+    text-align: center;
+    margin: 20px 0;
+    color: #333;
+}
+
+.uudis-image {
+    display: block;
+    max-width: 30%; /* Set the width of the image */
+    height: auto;
+    margin: 0 auto; /* Center the image */
+    border-radius: 10px; /* Optional: rounded corners */
+}
+
+.uudis-summary {
+    font-size: 1.2rem;
+    color: #555;
+    line-height: 1.6;
+    margin: 20px auto;
+    width: 30%; /* Restrict the paragraph width */
+    text-align: left; /* Make the text justified */
+} 
+
+.registreerumine {
+    padding-bottom: 3rem;
+    margin-top: 2rem;
+    margin-left: 3rem;
+}
+.registreerumine input {
+    margin-top: 1rem;
+}
 
 @media screen and (min-width: 992px) {
     .pealkiri-kastid {

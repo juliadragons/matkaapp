@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Matkaklubi</title>
+    <%- include("./partials/header.ejs") %>
+</head>
+<body>
+    <div class="header-container">
+        <div class="container">
+            <%- include("./partials/menyy.ejs") %>
+            <div class="row pealkiri">
+                <div class="col-lg-6 pealkiri-kastid">
+                    <div class="rida">
+                        <h2 class="pohi-varv">Matkaklubi</h2>
+                        <img class="liblikas1" src="./assets/Butterfly.png" alt="">
+                    </div>
+                    <div class="rida">
+                        <img src="./assets/Butterfly2.png" class="liblikas2" alt="">
+                        <h1 class="pohi-varv">Puhas Higi</h1>
+                    </div>
+                    <div class="rida viimane-rida">
+                        <h3 class="pohi-varv">
+                            Liikumine - tervise ja ilu pant
+                        </h3>
+                    </div>
+                    <div class="rida">
+                        <a href="/kontakt" class="call-to-action">Võta ühendust</a>
+                    </div>
+                </div>
+                <div class="col-lg-6 pealkiri-pilt d-none d-lg-block">
+                    <img src="./assets/Hiker.png" class="matkaja" alt="">
+                    <img src="./assets/Shadow.png" class="vari" alt="">
+                </div>
+               
+            </div>
+            <div class = "row">
+                <% for (let i=0; i < matkad.length; i++) { %>
+                    <div class="matk">
+                        <img class="matkapilt" src="<%=matkad[i].pildiUrl %>">
+                        <h3><%=matkad[i].nimetus %></h3>
+                        <p><%=matkad[i].kirjeldus %></p> 
+                        <p>Osalejad: <%=matkad[i].osalejad.length %></p>
+                        <a href="<%='/matk/' + i %>"> Loe edasi...</a>
+                        <br><br>
+                    </div>
+                    <% } %> 
+            </div>
+        </div>
+    </div>
+
+    
+</body>
+</html>

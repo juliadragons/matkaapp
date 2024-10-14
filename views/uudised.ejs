@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Uudised</title>
+    <%- include("./partials/header.ejs") %> 
+</head>
+<body>
+    <div class="container">
+        <%- include("./partials/menyy.ejs") %>
+
+        <div class="uudised">
+            <% for (let i = 0; i < uudised.length; i++) { %>
+                <div class="uudis-container">
+                    <img class="uudispilt" src="<%= uudised[i].pildiUrl %>">
+                    <h3><%= uudised[i].pealkiri %></h3>
+                    <p><%= uudised[i].kokkuvõte.substring(0, 100) %>...</p>
+                    <a href="<%='/uudis/' + i %>"> Loe edasi...</a>
+                </div>
+            <% } %>
+        </div>
+    </div>
+</body>
+</html>
