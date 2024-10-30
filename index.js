@@ -2,15 +2,18 @@ const express = require('express')
 const ejs = require('ejs')
 const path = require("path")
 
+const { lisaMatk, lisaRegistreerumine, loeMatkad, loeMatk } = require("./model");
+
 const app = express()
 
 //app.use(express.json());
 app.use(express.urlencoded({ extended: true })); // changed to use POST
+app.use(express.json()) // understands post of json
 
 app.set("views", path.join(__dirname,"views"))
 app.set("view engine", "ejs")
 
-const PORT = 3030
+const PORT = process.env.PORT || 3030
 
 const matk1 = {
     nimetus: "Sügismatk kõrvemaal",
@@ -131,5 +134,84 @@ app.post('/saadaKontakt', (req, res) => {
     salvestaKontakt(req.body.nimi, req.body.markus)
     res.render('kontakt_kinnitus', {nimi: req.body.nimi})
 })
+
+// http://localhost:3030/api/lisaMatk?nimetus=julia
+app.get('/api/lisaMatk', (req, res) => {
+    const uusMatk = {
+        nimetus: req.query.nimetus
+    }
+    lisaMatk(uusMatk)
+    res.end("Lisatud")
+} )
+
+app.get('/api/lisaRegistreerumine', (req, res) => {
+    //http://localhost:3030/api/lisaRegistreerumine?matkaIndex=2&nimi=Peter&email=peter@gmail.com
+    const uusRegistreerumine = {
+        matkaIndex: req.query.matkaIndex,
+        nimi: req.query.nimi,
+        email: req.query.email
+    }
+    lisaRegistreerumine(uusRegistreerumine)
+    res.end()
+})
+
+app.get('/admin', (req, res) => {
+    res.render("admin");
+});
+
+// Meetodid andmeoperatsioonide jaoks
+// read loe
+// post lisa
+// delete kustuta
+// put- andmekirjete muutmine
+// patch - andmekirjete täiendamiseks
+
+// api endpoint matkade nimekirja laadimiseks
+
+app.get('/api/matk', async (req, res) => {
+    const matkad = await loeMatkad()
+    res.json(matkad)
+})
+
+// api endpoint ühe matka andmete laadimiseks
+app.get('/api/matk/:matkIndeks', async (req, res) => {
+    //const matk = matkad[req.params.matkIndeks]
+    const id = req.params.matkIndeks;
+    const matk = await loeMatk(id);
+    if (!matk) {
+        res.status(404).end();
+        return
+    }
+    res.json(matk)
+})
+
+// lisa
+app.post('/api/matk', (req, res) => {
+    const uusMatk = {
+        nimetus : req.body.nimetus,
+        kirjeldus: req.body.kirjeldus,
+        pildiUrl: req.body.pildiUrl
+    }
+
+    console.log(uusMatk)
+    uusMatk.osalejad = []
+    uusMatk.matkIndeks = matkad.length
+    lisaMatk(uusMatk)
+    console.log(uusMatk)
+    matkad.push(uusMatk)
+    res.json(uusMatk)
+})
+
+// ühe matka kustutamine
+app.delete('api/:matkaIndex')
+
+// ühe matka andmete muutmine
+app.patch('/api/:matkaIndeks')
+
+//ühe matka kõigi osaletajate laadimine
+app.get('/api/matk/:matkIndeks/osaleja')
+
+//ühe matka ühte osaletaja laadimine
+app.get('/api/matk/:matkIndeks/osaleja/:osalejaIndeks')
 
 app.listen(PORT)
